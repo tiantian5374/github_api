@@ -12,16 +12,22 @@ print(f'Status code: {r.status_code}')
 # 处理结果
 response_dict = r.json()
 response_dicts = response_dict['items']
-repo_names, stars = [], []
+repo_names, stars, labels = [], [], []
 for repo_dict in response_dicts:
     repo_names.append(repo_dict['name'])
     stars.append(repo_dict['stargazers_count'])
+
+    owner = repo_dict['owner']['login']
+    description = repo_dict['description']
+    label = f'{owner}<br />{description}'
+    labels.append(label)
 
 # 可视化
 data = [{
     'type': 'bar',
     'x': repo_names,
     'y': stars,
+    'hovertext': labels,
     'marker': {
         'color': 'rgb(60, 100, 150)',
         'line': {'width': 1.5, 'color': 'rgb(25, 25, 25)'}
@@ -30,7 +36,7 @@ data = [{
 }]
 my_layout = {
     'title': 'GitHub上最受欢迎的Python项目',
-    'titlefont': {'size': 28},
+    'titlefont': {'size': 24},
     'xaxis': {
         'title': 'Repository',
         'titlefont': {'size': 24},
