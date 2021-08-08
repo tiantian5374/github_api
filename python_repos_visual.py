@@ -4,7 +4,7 @@ from plotly.graph_objs import Bar
 from plotly import offline
 
 # 执行API调用并存储响应
-url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
+url = 'https://api.github.com/search/repositories?q=language:python&sort=stars&per_page=100'
 headers = {'Accept': 'application/vnd.github.v3+json'}
 r = requests.get(url, headers=headers)
 print(f'Status code: {r.status_code}')
